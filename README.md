@@ -48,3 +48,17 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+## Final POE Updates
+
+The following improvements were made after Part 2:
+
+- Added a search feature to find dishes by name.
+- Added filters for Starters, Main Courses and Desserts.
+- Added an option to clear the search and filters.
+- Added menu statistics showing the total number of dishes.
+- Added an average price calculation.
+- Added a count of dishes in each course.
+- Used reusable filtering logic and clear variable names.
+- Kept validation for empty fields and invalid prices.
+- Tested adding, editing and deleting menu items.
