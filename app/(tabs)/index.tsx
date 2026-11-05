@@ -31,6 +31,57 @@ export default function HomeScreen() {
 
   const [message, setMessage] = useState('');
 
+  // Stores what the user types in the search box
+const [search, setSearch] = useState('');
+
+// Stores the course selected by the user
+const [selectedCourse, setSelectedCourse] = useState('All');
+
+// Searches dishes by name and filters by course
+const filteredItems = menuItems.filter((item) => {
+  const matchesSearch = item.dishName
+    .toLowerCase()
+    .includes(search.toLowerCase());
+
+  const matchesCourse =
+  selectedCourse === 'All' ||
+  item.courseType.toLowerCase().trim() ===
+    selectedCourse.toLowerCase().trim() ||
+  (selectedCourse === 'Main Course' &&
+    item.courseType.toLowerCase().trim() === 'main');
+
+  return matchesSearch && matchesCourse;
+});
+   // MENU STATISTICS
+
+// Counts all menu items
+const totalItems = menuItems.length;
+
+// Calculates the average price
+const totalPrice = menuItems.reduce(
+  (total, item) => total + Number(item.price),
+  0
+);
+
+const averagePrice = totalItems > 0
+  ? totalPrice / totalItems
+  : 0;
+
+// Counts the items in each course
+const starterCount = menuItems.filter(
+  (item) => item.courseType.trim().toLowerCase() === 'starter'
+).length;
+
+const mainCount = menuItems.filter(
+  (item) =>
+    ['main course', 'main'].includes(
+      item.courseType.trim().toLowerCase()
+    )
+).length;
+
+const dessertCount = menuItems.filter(
+  (item) => item.courseType.trim().toLowerCase() === 'dessert'
+).length;
   // Clears all input fields
   const clearForm = () => {
     setDishName('');
@@ -173,6 +224,49 @@ export default function HomeScreen() {
               Manage your restaurant dishes
             </Text>
 
+            <Text style={styles.menuHeading}>Search Menu</Text>
+
+            <TextInput
+            style={styles.input}
+            placeholder="Search for a dish"
+            value={search}
+            onChangeText={setSearch}
+          />
+          {/* MENU STATISTICS */}
+
+<Text style={styles.menuHeading}>Menu Statistics</Text>
+
+<Text>Total Menu Items: {totalItems}</Text>
+
+<Text>Average Price: R{averagePrice.toFixed(2)}</Text>
+
+<Text>Starters: {starterCount}</Text>
+
+<Text>Main Courses: {mainCount}</Text>
+
+<Text>Desserts: {dessertCount}</Text>
+
+<Text style={styles.menuHeading}>Filter by Course</Text>
+
+{['All', 'Starter', 'Main Course', 'Dessert'].map((course) => (
+  <Pressable
+    key={course}
+    style={styles.greenButton}
+    onPress={() => setSelectedCourse(course)}
+  >
+    <Text style={styles.buttonText}>{course}</Text>
+  </Pressable>
+))}
+
+<Pressable
+  onPress={() => {
+    setSearch('');
+    setSelectedCourse('All');
+  }}
+>
+  <Text style={styles.backText}>Clear Search and Filter</Text>
+</Pressable>
+
             <Pressable
               style={styles.greenButton}
               onPress={openAddScreen}
@@ -192,7 +286,7 @@ export default function HomeScreen() {
                   Menu Items
                 </Text>
 
-                {menuItems.map((item) => (
+                {filteredItems.map((item) => (
                   <View
                     key={item.id}
                     style={styles.menuItem}
