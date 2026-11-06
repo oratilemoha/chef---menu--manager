@@ -62,3 +62,11 @@ The following improvements were made after Part 2:
 - Used reusable filtering logic and clear variable names.
 - Kept validation for empty fields and invalid prices.
 - Tested adding, editing and deleting menu items.
+
+## Final POE Video Demonstration
+
+For my final POE, I recorded a video showing how my Restaurant Menu Manager application works.
+
+The video demonstrates how to add, edit and delete menu items. It also shows the search feature, course filters and menu statistics.
+
+YouTube Video:https://youtu.be/oxc0qMEMC00?si=oidw3RfIYIAKufXE
